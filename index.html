@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Une petite question...</title>
+    <style>
+        body {
+            background-color: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        .container {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            width: 85%;
+            max-width: 400px;
+            min-height: 250px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        h1 { color: #1e293b; font-size: 1.3rem; line-height: 1.4; margin-bottom: 30px; z-index: 1; }
+        .btns { 
+            display: flex; 
+            justify-content: center; 
+            gap: 20px; 
+            height: 50px; 
+            align-items: center;
+        }
+        button {
+            padding: 12px 25px;
+            border-radius: 12px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+        #yes { background-color: #007aff; color: white; z-index: 1; }
+        #no { 
+            background-color: #f1f5f9; 
+            color: #64748b; 
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            z-index: 10; /* 确保在最上层 */
+        }
+        .compliment { color: #007aff; font-weight: bold; font-size: 1.1rem; line-height: 1.5; }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainBox">
+        <h1 id="question">Coucou ! Est-ce que tu aimes <br><strong>notre playlist</strong> ? <br><br>L'algorithme dit que tu as un goût musical incroyable... Tu es d'accord ? ✨</h1>
+        <div class="btns" id="btnWrapper">
+            <button id="yes" onclick="showLove()">Oui, j'adore !</button>
+            <button id="no" onmouseover="moveNo()" onclick="moveNo()">Pas du tout</button>
+        </div>
+    </div>
+
+    <script>
+        function moveNo() {
+            const btn = document.getElementById('no');
+            const box = document.getElementById('mainBox');
+            
+            // 计算容器的边界范围
+            const padding = 20;
+            const maxX = box.clientWidth - btn.clientWidth - padding;
+            const maxY = box.clientHeight - btn.clientHeight - padding;
+            
+            // 随机生成坐标
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            // 将按钮从原本的 Flex 布局中脱离，变为绝对定位
+            btn.style.position = 'absolute';
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+            
+            // 随机切换逗趣文案
+            const texts = ["Menteuse ! 😉", "Tu es sûre ?", "Vraiment ?", "Même pas en rêve !"];
+            btn.innerText = texts[Math.floor(Math.random() * texts.length)];
+        }
+
+        function showLove() {
+            const box = document.getElementById('mainBox');
+            box.style.transform = "scale(1.05)";
+            box.innerHTML = `
+                <h1 style="font-size: 1.8rem;">C'est génial ! 🎉</h1>
+                <p class="compliment">Franchement, j'ai rarement vu quelqu'un avec autant de style et une telle oreille musicale. Tu es incroyable ! ✨</p>
+                <p style="color: #64748b; margin-top: 20px;">J’ai hâte que tu me fasses découvrir tes prochaines pépites !</p>
+            `;
+        }
+    </script>
+</body>
+</html>
